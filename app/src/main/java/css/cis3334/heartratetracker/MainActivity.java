@@ -1,5 +1,6 @@
 package css.cis3334.heartratetracker;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -23,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<HeartRate> hrAdapter;
 
     //ArrayList<HeartRate> basicheartRateList;
-
+    private static final int CIS3334_REQUEST_CODE = 1001;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +48,12 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
                 HeartRate hr = (HeartRate) parent.getItemAtPosition(position);
                 tvSelect.setText("You selected: " + hr.toString());
+                Intent intent = new Intent(MainActivity.this, OtherActivity.class);
+                intent.putExtra("HeartRate", hr);
+                startActivityForResult(intent, CIS3334_REQUEST_CODE);
             }
+
+
         });
 
     }
